@@ -5,7 +5,9 @@ TheOnlyMirror 是一个用于单域名实现多镜像源的项目。通过对来
 测试站点 mirror.nothinglikethis.asia
 
 ## 另一种实现
+
 如果可以的话请看看隔壁用config实现的版本 https://github.com/huangzheng2016/TheOnlyMirror
+
 ## 可用镜像
 
 - Debian系
@@ -21,7 +23,7 @@ TheOnlyMirror 是一个用于单域名实现多镜像源的项目。通过对来
 
 ```
 {
-  "domain": "mirror.nothinglikethis.asia", //域名
+  "domain": "mirror.qlnu-sec.cn", //域名
   "mirrorList": [ //目前没用
     "dockerhub",
     "github",
@@ -54,6 +56,28 @@ TheOnlyMirror 是一个用于单域名实现多镜像源的项目。通过对来
 - Debian /debian
 - Kali /kali
 
+### 具体换源方法
+
+```shell
+
+# Docker换源
+tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://mirror.qlnu-sec.cn"]
+}
+EOF
+
+# Linux换源，仅作参考
+sed -i "s/http.kali.org/mirror.qlnu-sec.cn/g" /etc/apt/sources.list
+
+# Python换源
+pip config set global.index-url https://mirror.qlnu-sec.cn
+pip install -i https://mirror.qlnu-sec.cn flask
+
+# Node换源
+npm config set registry https://mirror.qlnu-sec.cn
+
+```
 ## 部署方式
 ```shell
 git clone https://github.com/Jlan45/TheOnlyMirror
